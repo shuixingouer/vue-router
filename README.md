@@ -1,119 +1,120 @@
-#��װ����
+#安装依赖
 npm install
 
-#����demo01������
+#运行demo01的例子
 npm run demo01-dev
 
-#���Ҫ����ͷ���
+#如果要编译和发布
 npm run demo01-build
 
-#��д��ҳ��Ĳ���
+#编写单页面的步骤
 JavaScript
-���������������ҳ��Ӧ����Ҫ��Ⱦ�����
-����·�ɣ�����VueRouterʵ��
-ӳ��·�ɣ�����VueRouterʵ����map����
-����·�ɣ�����VueRouterʵ����start����
+创建组件：创建单页面应用需要渲染的组件
+创建路由：创建VueRouter实例
+映射路由：调用VueRouter实例的map方法
+启动路由：调用VueRouter实例的start方法
 HTML
-ʹ��v-linkָ��
-ʹ��<router-view>��ǩ
+使用v-link指令
+使用<router-view>标签
 
-#v-linkָ��
-������ô�õ�v-linkָ��Ǹý���һ�����ˡ�
+#v-link指令
+用了这么久的v-link指令，是该介绍一下它了。
 
-v-link ��һ���������û��� vue-router Ӧ�õĲ�ͬ·������ת��ָ���ָ�����һ�� JavaScript ����ʽ���������û����Ԫ��ʱ�øñ���ʽ��ֵȥ���� router.go��
+v-link 是一个用来让用户在 vue-router 应用的不同路径间跳转的指令。该指令接受一个 JavaScript 表达式，并会在用户点击元素时用该表达式的值去调用 router.go。
 
-����������v-link�������÷���
+具体来讲，v-link有三种用法：
 
-<!-- ������·�� -->
+<!-- 字面量路径 -->
 <a v-link="'home'">Home</a>
 
-<!-- Ч��ͬ�� -->
+<!-- 效果同上 -->
 <a v-link="{ path: 'home' }">Home</a>
 
-<!-- ����·�� -->
+<!-- 具名路径 -->
 <a v-link="{ name: 'detail', params: {id: '01'} }">Home</a>
-v-link ���Զ����� <a> �� href ���ԣ�������ʹ��href������������ĵ�����ԭ�����£�
+v-link 会自动设置 <a> 的 href 属性，你无需使用href来处理浏览器的调整，原因如下：
 
-���� HTML5 history ģʽ�� hash ģʽ�µĹ�����ʽ��ͬ���������������ı�ģʽ������ IE9 ������˻�Ϊ hash ģʽʱ��������Ҫ���κθı䡣
+它在 HTML5 history 模式和 hash 模式下的工作方式相同，所以如果你决定改变模式，或者 IE9 浏览器退化为 hash 模式时，都不需要做任何改变。
 
-�� HTML5 history ģʽ�£�v-link ���������¼�����ֹ������������¼���ҳ�档
+在 HTML5 history 模式下，v-link 会监听点击事件，防止浏览器尝试重新加载页面。
 
-�� HTML5 history ģʽ��ʹ�� root ѡ��ʱ������Ҫ�� v-link �� URL �а��� root ·����
+在 HTML5 history 模式下使用 root 选项时，不需要在 v-link 的 URL 中包含 root 路径。
 
 
 
 #demo01
-��һ����ҳ��Ӧ��
+第一个单页面应用
 
 #demo02
-Ƕ��·��
+嵌套路由
 
 #demo03
-����·��
+具名路径
 
 #demo04
-·�ɶ���
+路由对象
 
-��ʹ���� vue-router ��Ӧ���У�·�ɶ���ᱻע��ÿ������У���ֵΪ this.$route �����ҵ�·���л�ʱ��·�ɶ���ᱻ���¡�
+在使用了 vue-router 的应用中，路由对象会被注入每个组件中，赋值为 this.$route ，并且当路由切换时，路由对象会被更新。
 
-·�ɶ���¶���������ԣ�
+路由对象暴露了以下属性：
 
 $route.path
-�ַ��������ڵ�ǰ·�ɶ����·�����ᱻ����Ϊ����·������ "/home/news" ��
+字符串，等于当前路由对象的路径，会被解析为绝对路径，如 "/home/news" 。
 $route.params
-���󣬰���·���еĶ�̬Ƭ�κ�ȫƥ��Ƭ�εļ�ֵ��
+对象，包含路由中的动态片段和全匹配片段的键值对
 $route.query
-���󣬰���·���в�ѯ�����ļ�ֵ�ԡ����磬���� /home/news/detail/01?favorite=yes ����õ� $route.query.favorite == 'yes' ��
+对象，包含路由中查询参数的键值对。例如，对于 /home/news/detail/01?favorite=yes ，会得到 $route.query.favorite == 'yes' 。
 $route.router
-·�ɹ���������·�������Լ����������������
+路由规则所属的路由器（以及其所属的组件）。
 $route.matched
-���飬������ǰƥ���·����������������Ƭ������Ӧ�����ò�������
+数组，包含当前匹配的路径中所包含的所有片段所对应的配置参数对象。
 $route.name
-��ǰ·�������֣����û��ʹ�þ���·����������Ϊ�ա�
-��ҳ�����������´��룬������ʾ��Щ·�ɶ�������ԣ�
+当前路径的名字，如果没有使用具名路径，则名字为空。
+在页面上添加以下代码，可以显示这些路由对象的属性：
 
 
 
 #demo05
-�����Ӵ��ڻ�Ծ״̬
+让链接处于活跃状态
 
 
 #basic
-�ǵ�ҳ���ֱ�Ӵ�����
+是单页面可直接打开运行
 
 #basic/demo06
-�ǹ��Ӻ����Ľ���
+是钩子函数的讲解
 
-·�ɵ��л����̣���������ִ��һϵ��·�ɹ��Ӻ��������Ӻ��������Ϸ�Ϊ�����ࣺ
+路由的切换过程，本质上是执行一系列路由钩子函数，钩子函数总体上分为两大类：
 
-ȫ�ֵĹ��Ӻ���
-����Ĺ��Ӻ���
-ȫ�ֵĹ��Ӻ���������ȫ�ֵ�·�ɶ����У�����Ĺ��Ӻ��������������routeѡ���С�
+全局的钩子函数
+组件的钩子函数
+全局的钩子函数定义在全局的路由对象中，组件的钩子函数则定义在组件的route选项中。
 
-ȫ�ֹ��Ӻ���
-ȫ�ֹ��Ӻ�����2����
+全局钩子函数
+全局钩子函数有2个：
 
-beforeEach����·���л���ʼʱ����
-afterEach����ÿ��·���л��ɹ����뼤��׶�ʱ������
-����Ĺ��Ӻ���
-����Ĺ��Ӻ���һ��6����
+beforeEach：在路由切换开始时调用
+afterEach：在每次路由切换成功进入激活阶段时被调用
+组件的钩子函数
+组件的钩子函数一共6个：
 
-data���������������data
-activate���������
-deactivate���������
-canActivate������Ƿ���Ա�����
-canDeactivate������Ƿ���Ա�����
-canReuse������Ƿ���Ա�����
-�л�����
-ÿ���л����Ӻ����������һ�� transition ������Ϊ����������л�����������º����ͷ�����
+data：可以设置组件的data
+activate：激活组件
+deactivate：禁用组件
+canActivate：组件是否可以被激活
+canDeactivate：组件是否可以被禁用
+canReuse：组件是否可以被重用
+切换对象
+每个切换钩子函数都会接受一个 transition 对象作为参数。这个切换对象包含以下函数和方法：
 
 transition.to
-��ʾ��Ҫ�л�����·����·�ɶ���
+表示将要切换到的路径的路由对象。
 transition.from
-������ǰ·����·�ɶ���
+代表当前路径的路由对象。
 transition.next()
-���ô˺��������л����̵���һ����
+调用此函数处理切换过程的下一步。
 transition.abort([reason])
-���ô˺�������ֹ���߾ܾ��˴��л���
+调用此函数来终止或者拒绝此次切换。
 transition.redirect(path)
-ȡ����ǰ�л����ض�����һ��·�ɡ�
+取消当前切换并重定向到另一个路由。
+博文链接：http://www.cnblogs.com/keepfool/p/5690366.html
